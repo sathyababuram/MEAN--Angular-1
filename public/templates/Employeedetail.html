@@ -1,0 +1,113 @@
+<md-toolbar class="md-accent">
+    <div class="md-toolbar-tools container">
+    <h3 class="text-center" >MEAN App</h3>
+    <span flex></span>
+       </div>
+</md-toolbar>
+
+<!-- <div class="col-xs-12 col-md-12 namelist">
+    
+    <div class="container">
+        <h3 class="text-center">Add New List</h3>
+        <form name = "employeeForm" novalidate>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" id="name" name="name" ng-model="vm.employee.name" placeholder="Name" required>
+            <span style="color:red" ng-show="employeeForm.name.$dirty && 
+            employeeForm.name.$invalid" >
+            <span ng-show ="employeeForm.name.$error.required">
+                 Name is Required
+            </span>
+            </span>
+        </div>
+        <div class="form-group">
+            <label>Email address</label>
+            <input type="email" class="form-control" id="email" name="email" ng-model="vm.employee.email"  placeholder="Enter email"required>
+            <span style="color:red;" ng-show="employeeForm.email.$dirty && 
+            employeeForm.email.$invalid">
+            <span ng-show ="employeeForm.email.$error.required">
+                E-mail  is Required
+            </span>
+            <span ng-show ="employeeForm.email.$error.email">
+                E-mail  is invalid
+            </span>
+            </span>
+        </div>
+        
+       <div class="form-group">
+            <label>Mobile Number</label>
+            <input type="number" class="form-control" id="number" name="number" ng-model="vm.employee.number" ng placeholder="Enter Phone Number" required>
+            <span style="color:red" ng-show="employeeForm.number.$dirty && 
+            employeeForm.number.$invalid">
+            <span ng-show ="employeeForm.number.$error.required">
+                Mobile Number is Required 
+            </span>
+            </span>
+           <p style="color:red">{{message}}</p>
+        </div>
+        <div class="form-group">
+                <label>Message</label>
+                <textarea  id="message" class="form-control" name="message"  placeholder="Enter Message" ng-model="vm.employee.message" required></textarea>
+                <span style="color:red" ng-show="employeeForm.message.$dirty && 
+                employeeForm.message.$invalid">
+                <span ng-show ="employeeForm.message.$error.required">
+                   Please Enter Your message
+                </span>
+                </span>
+            </div>
+            <button ng-disabled ="employeeForm.name.$dirty && employeeForm.name.$invalid || employeeForm.number.$dirty && employeeForm.number.$invalid || employeeForm.email.$dirty && employeeForm.email.$invalid || employeeForm.message.$dirty && employeeForm.message.$invalid" type="submit" ng-click="vm.addemployee()"  class="btn  btn-primary">Submit</button>
+            <!-- <button type="submit" ng-click="updateEmployee()" class="btn btn-block btn-primary">Update</button> -->
+            <!-- <button class="btn btn-primary" ng-click="vm.cancel()">Cancel</button>  
+        </form>
+           
+    </div>
+ 
+</div> --> 
+
+<md-card  layout-margin>
+    <md-content layout-padding>
+        <form name="Employeeform">
+    
+          <md-input-container class="md-block">
+            <label>Enter Your Name</label>
+            <input  required md-no-asterisk id="name" name="name" ng-model="vm.employee.name">
+            <div ng-messages="Employeeform.name.$error">
+              <div ng-message="required">Name  is required.</div>
+                </div>
+          </md-input-container>
+
+    
+          <md-input-container class="md-block">
+            <label>Enter Your  Email</label>
+            <input required type="email" id="name" name="email" ng-model="vm.employee.email"
+                   minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+    
+            <div ng-messages="Employeeform.email.$error" role="alert">
+              <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                Your email must be between 10 and 100 characters long and look like an e-mail address.
+              </div>
+            </div>
+</md-input-container>
+            <md-input-container class="md-block">
+                <label>Enter Your Number</label>
+                <input  required md-no-asterisk type="number" id="number" name="number" ng-model="vm.employee.number" ng-pattern="/^[0-9]{10}$/">
+                <div ng-messages="Employeeform.number.$error">
+                    <div ng-message="pattern"> Please enter a valid Number.</div>
+                </div>
+              </md-input-container>
+
+              <md-input-container class="md-block">
+                <label>Message</label>
+                <textarea ng-model="vm.employee.message"  rows="3"></textarea>
+              </md-input-container>
+          </md-input-container>
+             <div>
+            <md-button ng-click="vm.addemployee()" class="md-raised md-primary"type="submit"><i class="fa fa-paper-plane" style="color:#fff" aria-hidden="true"></i>&nbspSubmit</md-button>
+            <md-button ng-click="vm.goto()" class="md-raised md-default"type="submit"><i class="fa fa-times" aria-hidden="true"></i>&nbspCancel</md-button>
+          </div>
+
+        </form>
+      </md-content>
+</md-card>
+
+

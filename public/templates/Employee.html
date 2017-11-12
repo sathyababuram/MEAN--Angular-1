@@ -1,0 +1,148 @@
+<md-toolbar class="md-accent">
+    <div class="md-toolbar-tools container">
+        <h3 class="text-center"> MEAN App</h3>
+        <span flex></span>
+        <form layout="row" layout-align="center center">
+
+            <md-select ng-model="vm.query.page" placeholder="Page" class="md-no-underline">
+                <md-option value="1">1</md-option>
+                <md-option value="2">2</md-option>
+                <md-option value="3">3</md-option>
+                <md-option value="4">4</md-option>
+                <md-option value="5">5</md-option>
+            </md-select>
+
+            <md-select ng-model="vm.query.limit" placeholder="limit" class="md-no-underline">
+                <md-option value="1">1</md-option>
+                <md-option value="2">2</md-option>
+                <md-option value="3">3</md-option>
+                <md-option value="4">4</md-option>
+                <md-option value="5">5</md-option>
+            </md-select>
+            <md-button class="md-raised md-primary" ng-click="vm.getEmployee()"><i class="fa fa-filter" aria-hidden="true" style="color:#fff"></i>&nbsp Filter</md-button>
+        </form>
+
+        <md-button class="md-raised md-primary" ng-click="vm.AddFields()"><i class="fa fa-user-plus" aria-hidden="true" style="color:#fff"></i>&nbspNew Employee</md-button>
+    </div>
+</md-toolbar>
+
+
+<md-card layout-padding layout-margin layout-fill>
+
+    <md-table-container>
+        <div infinite-scroll='vm.loadMore()' infinite-scroll-distance='1'>
+            <table md-table class="md-primary md-data-table " md-progress="vm.promise">
+                <thead md-head md-order="vm.sorting.order">
+                    <tr md-row>
+                        <th md-column md-order-by="name"><span translate>{{vm.columns.name}}</span></th>
+                        <th md-column>{{vm.columns.email}}</th>
+                        <th md-column>{{vm.columns.number}}</th>
+                        <th md-column>{{vm.columns.message}}</th>
+                        <th md-column>{{vm.columns.action}}</th>
+                    </tr>
+                </thead>
+                <tbody md-body infinite-scroll='vm.loadMore()' infinite-scroll-distance='2'>
+                    <tr md-row ng-repeat="newEmployee in vm.newEmployee">
+                        <td md-cell>
+                            <form>
+                                <md-input-container>
+                                    <label>Enter Your Name</label>
+
+                                    <input form-validate required md-no-asterisk ng-model="newEmployee.name" type="text" id="name" name="name">
+                                    <!-- <div ng-messages="Employeeform.name.$error">
+                                        <div ng-message="NameValidator">Name is required
+                                        </div>
+                                    </div> -->
+                                    <!-- <div ng-messages="Employeeform.name.$error">
+                                        <div ng-message="required">Name is required.</div>
+                                    </div> -->
+                                </md-input-container>
+                        </td>
+                        <td>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Enter Your E-mail</label>
+                                <input required md-no-asterisk ng-model="newEmployee.email" type="e-mail" id="email" name="email" form-validate email>
+                                <!-- <div ng-messages="Employeeform.email.$error">
+                                    <div ng-message="emailValidator">Email is Invalid
+                                    </div>
+
+                                </div> -->
+                                <!-- <div ng-messages="Employeeform.email.$error" role="alert">
+                                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                        Your email must be between 10 and 100 characters long and look like an e-mail address.
+                                    </div>
+                                </div> -->
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Enter Your Phone</label>
+                                <input form-validate required md-no-asterisk ng-model="newEmployee.number" type="text" id="number" name="number" formValidate>
+                                <!-- <div ng-messages="Employeeform.number.$error">
+                                    <div ng-message="numberValidator">Number is Invalid
+                                    </div> -->
+                                <!-- <div ng-messages="Employeeform.number.$error">
+                                    <div ng-message="pattern"> Please enter a valid Number.</div>
+                                </div> -->
+                            </md-input-container>
+                        </td>
+                        <td>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Enter Your Message</label>
+                                <input form-validate required md-no-asterisk ng-model="newEmployee.message" type="text" id="name" name="name" formValidate>
+                                <!-- <div ng-messages="Employeeform.message.$error">
+                                    <div ng-message="messageValidator">Message is Invalid
+                                    </div> -->
+
+                            </md-input-container>
+                        </td>
+
+                        <td md-cell>
+                            <md-button class="md-raised md-primary" ng-click=" vm.addEmployee($index)">
+                                <i class="fa fa-paper-plane" style="color:#fff" aria-hidden="true"></i>&nbspSave</md-button>
+                            <md-button class="md-raised md-default" ng-click="vm.remove($index)">
+                                <i class="fa fa-times" aria-hidden="true"></i>&nbspCancel</md-button>
+                            </form>
+
+                    </tr>
+                    <tr md-row layout-padding md-row ng-repeat="employees in vm.employee">
+
+
+                        <td md-cell>
+                            <md-input-container ng-if="!!employees.update"><input required md-no-asterisk ng-model="employees.name"> </md-input-container>
+                            <span ng-if="!employees.update">{{employees.name}}</span>
+                        </td>
+                        <td md-cell>
+                            <md-input-container ng-if="!!employees.update"><input ng-if="employees.update" required md-no-asterisk ng-model="employees.email"> </md-input-container>
+                            <span ng-if="!employees.update">{{employees.email}}</span>
+                        </td>
+
+                        <td md-cell>
+                            <md-input-container><input ng-if="employees.update" required md-no-asterisk ng-model="employees.number"> </md-input-container>
+                            <span ng-if="!employees.update">{{employees.number}} </span>
+                        </td>
+
+                        <td md-cell>
+                            <md-input-container><input ng-if="employees.update" required md-no-asterisk ng-model="employees.message"> </md-input-container>
+                            <span ng-if="!employees.update">{{employees.message}}</span>
+                        </td>
+
+                        <td md-cell>
+                            <md-button ng-if="!employees.update" class="md-raised md-primary" ng-click="employees.update=true"><i class="fa fa-pencil" style="color:#fff" aria-hidden="true"></i>&nbsp Edit</md-button>
+                            <md-button ng-if="!employees.update" class="md-raised md-warn" ng-click=" vm.deleteEmployee($index)"><i class="fa fa-trash" style="color:rgb(251, 252, 255)" aria-hidden="true"></i>&nbsp Delete</md-button>
+                            <md-button ng-if="!!employees.update" class="md-raised md-primary" ng-click="employees.update=false && vm.updateEmployee($index)"><i class="fa fa-paper-plane" style="color:#fff" aria-hidden="true"></i>&nbspSave</md-button>
+                            <md-button ng-if="!!employees.update" class="md-raised md-default" ng-click="vm.getEmployee()"><i class="fa fa-times" aria-hidden="true"></i>&nbspCancel</md-button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </md-table-container>
+    <!-- <data-md-table-pagination md-limit="vm.query.limit" md-limit-options="vm.limitOptions" md-page="vm.query.page" md-total="{{vm.employee.count}}" md-on-paginate="vm.onPaginate" md-page-select="vm.options.pageSelect" md-boundary-links="vm.options.boundaryLinks"></data-md-table-pagination> -->
+    <!-- <data-md-table-pagination md-limit="vm.query.limit" md-page="vm.vquery.page" md-total="5" md-on-paginate="vm.getEmployee()" md-page-select="" md-boundary-links=""></data-md-table-pagination> -->
+</md-card>
+
+<!-- <div infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+    <img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>
+</div> -->
